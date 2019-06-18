@@ -9,8 +9,7 @@ import { mapState, mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['data', 'curPage', 'perPage', 'searchText']),
-    ...mapGetters(['range', 'getAverage'])
+    ...mapState(['data', 'curPage', 'perPage'])    
   }
 }
 </script>
