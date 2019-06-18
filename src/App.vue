@@ -1,31 +1,57 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="app-header">
+      <ShowItems />
+      <SearchItems />
     </div>
-    <router-view/>
+
+    <TableData />
+
+    <div class="app-footer">
+      <Info />
+      <Pagination />
+    </div>
   </div>
 </template>
 
+
+<script>
+import TableData from '@/components/Table.vue';
+import ShowItems from '@/components/ShowItems.vue';
+import SearchItems from '@/components/SearchItems.vue';
+import Pagination from '@/components/Pagination.vue';
+import Info from '@/components/Info.vue';
+export default {
+  name: 'App',
+  components: {
+    TableData,
+    ShowItems,
+    SearchItems,
+    Pagination,
+    Info,
+    // Upload,
+  },
+}
+</script>
+
+
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
+* {
+  box-sizing: border-box;
+  color: #73879c;
+  font-size: 14px;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.app-header,
+.app-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 2px;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+.app-upload {
+  padding: 10px 0;
 }
 </style>
+
+
