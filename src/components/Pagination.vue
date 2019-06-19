@@ -1,22 +1,21 @@
 <template>
   <nav>
     <ul>
-      <li>
-        <!-- click.prevent - не позволяет переходу выполняться и выполняет метод prevPage -->
-        <a href="#" v-if="curPage!=1" @click.prevent="prevPage">Previous</a>
+      <li>       
+        <router-link :to="{ name: 'table', params: { num_page: curPage - 1}}" v-if="curPage!=1" >Previous</router-link>
         <span v-else class="disabled">Previous</span>
       </li>
 
       <template v-if="numPages <=6">
         <li v-for="n in numPages" :key="n">
-          <a href="#" v-if="curPage!=n" @click.prevent="setCurPage(n)">{{n}}</a>
+          <router-link :to="{ name: 'table', params: { num_page: n}}" v-if="curPage!=n">{{n}}</router-link>
           <span v-else class="active">{{n}}</span>
         </li>
       </template>
 
       <template v-else-if="numPages > 6 && curPage <= 4">
         <li v-for="n in 5" :key="n">
-          <a href="#" v-if="curPage!=n" @click.prevent="setCurPage(n)">{{n}}</a>
+          <router-link :to="{ name: 'table', params: { num_page: n}}" v-if="curPage!=n">{{n}}</router-link>
           <span v-else class="active">{{n}}</span>
         </li>
         <li>
@@ -29,32 +28,32 @@
           <span class="disabled">...</span>
         </li>
         <li v-for="n in [numPages-4, numPages-3, numPages-2, numPages-1, numPages]" :key="n">
-          <a href="#" v-if="curPage!=n" @click.prevent="setCurPage(n)">{{n}}</a>
+          <router-link :to="{ name: 'table', params: { num_page: n}}"  v-if="curPage!=n">{{n}}</router-link>
           <span v-else class="active">{{n}}</span>
         </li>
       </template>
 
       <template v-else>
         <li>
-          <a href="#" @click.prevent="setCurPage(1)">1</a>
+          <router-link :to="{ name: 'table', params: { num_page: 1}}"  >1</router-link>
         </li>
         <li>
           <span class="disabled">...</span>
         </li>
         <li v-for="n in [curPage-1, curPage, curPage+1]" :key="n">
-          <a href="#" v-if="curPage!=n" @click.prevent="setCurPage(n)">{{n}}</a>
+          <router-link :to="{ name: 'table', params: { num_page: n}}" v-if="curPage!=n">{{n}}</router-link>
           <span v-else class="active">{{n}}</span>
         </li>
         <li>
           <span class="disabled">...</span>
         </li>
         <li>
-          <a href="#" @click.prevent="setCurPage(numPages)">{{numPages}}</a>
+          <router-link :to="{ name: 'table', params: { num_page: numPages}}">{{numPages}}</router-link>
         </li>
       </template>
 
       <li>
-        <a href="#" v-if="curPage!=numPages" @click.prevent="nextPage">Next</a>
+        <router-link :to="{ name: 'table', params: { num_page: curPage + 1}}"  v-if="curPage!=numPages">Next</router-link>
         <span v-else class="disabled">Next</span>
       </li>
   
@@ -75,16 +74,16 @@ export default {
   methods: {
     setCurPage(n) {
       this.$store.commit('set', { key: 'curPage', value: n });
-    },
-
-    prevPage() {
-      this.$store.commit('set', { key: 'curPage', value: this.curPage - 1 });
-    },
-
-    nextPage() {
-      this.$store.commit('set', { key: 'curPage', value: this.curPage + 1 });
-    },
+    }
   },
+
+  watch: {
+    '$route.params.num_page': function(page) {
+      console.log('page changed to ' + page)
+      this.setCurPage(page)
+    }
+  } 
+
 };
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="info">     
-    Info: {{(curPage * perPage - perPage) + 1}} - {{curPage * perPage}} / {{data.length}}    
+    Info: {{(curPage * perPage - perPage) + 1}} - {{(curPage * perPage) > data.length ? data.length : (curPage * perPage)}} / {{data.length}}    
   </div>
 </template>
 

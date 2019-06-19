@@ -29,6 +29,7 @@
 		},
 
 		methods: {
+			// для подсветки при поиске
 			replaceText(text) {
 				return text.replace(
 					new RegExp('(' + this.searchText + ')', 'gim'),
@@ -37,6 +38,12 @@
 			},
 		},
 	};
+
+
+	// if (this.$store.state.data[index][key] !== this.editedCell && this.editedCell !==''){
+    //       this.$store.state.data[index][key] = this.editedCell
+    //       this.editedCell = ''
+    //   }
 </script>
 
 

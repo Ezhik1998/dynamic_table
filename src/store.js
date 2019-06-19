@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-import data from './data';
+import data from './files/albums';
 export default new Vuex.Store({
   state: {
     data,
