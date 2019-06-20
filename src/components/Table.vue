@@ -2,7 +2,10 @@
 	<table>
 		<thead>
 			<tr>
-				<th v-for="(field, index) in fields" :key="`f${index}`">
+				<th v-for="(field, index) in fields" 
+				:key="`f${index}`"
+				@click="setSortOrder(fields[index])"
+				:class="sortParam === fields[index] ? (order ? 'sortAsc' : 'sortDesc') : '' " >
 					{{ field }}
 				</th>
 			</tr>
@@ -18,26 +21,30 @@
 </template>
 
 <script>
-	import { mapState, mapGetters } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
-	export default {
-		name: 'Table',
+export default {
+	name: 'Table',
 
-		computed: {
-			...mapState(['searchText']),
-			...mapGetters(['fields', 'rows']),
-		},
+	computed: {
+		...mapState(['searchText', 'order', 'sortParam']),
+		...mapGetters(['fields', 'rows']),
+	},
 
-		methods: {
-			// для подсветки при поиске
-			replaceText(text) {
-				return text.replace(
-					new RegExp('(' + this.searchText + ')', 'gim'),
+	methods: {
+		// для подсветки при поиске
+		replaceText(text) {
+			return text.replace(
+				new RegExp('(' + this.searchText + ')', 'gim'),
 					'<i>$1</i>',
-				);
-			},
+			);
 		},
-	};
+
+		setSortOrder(col){
+			this.$store.dispatch('setOrder', col)
+		}
+	},
+};
 
 
 	// if (this.$store.state.data[index][key] !== this.editedCell && this.editedCell !==''){

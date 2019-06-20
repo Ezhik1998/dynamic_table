@@ -40,7 +40,7 @@
         <li>
           <span class="disabled">...</span>
         </li>
-        <li v-for="n in [curPage-1, curPage, curPage+1]" :key="n">
+        <li v-for="n in [curPage-1, curPage, Number.parseInt(curPage)+1]" :key="n">
           <router-link :to="{ name: 'table', params: { num_page: n}}" v-if="curPage!=n">{{n}}</router-link>
           <span v-else class="active">{{n}}</span>
         </li>
@@ -53,7 +53,7 @@
       </template>
 
       <li>
-        <router-link :to="{ name: 'table', params: { num_page: curPage + 1}}"  v-if="curPage!=numPages && numPages > 0">Next</router-link>
+        <router-link :to="{ name: 'table', params: { num_page: Number.parseInt(curPage) + 1}}"  v-if="curPage!=numPages">Next</router-link>
         <span v-else class="disabled">Next</span>
       </li>
   

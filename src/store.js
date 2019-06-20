@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import _ from 'lodash'
+
 Vue.use(Vuex)
 
 import data from './files/data';
@@ -10,6 +12,8 @@ export default new Vuex.Store({
     curPage: 1,
     perPage: 5,
     searchText: '',
+    order: false,
+    sortParam: ''
   },
   getters: {
     // массив ключей
@@ -18,8 +22,16 @@ export default new Vuex.Store({
     numPages: (state, getters) =>
       Math.ceil(getters.filteredData.length / state.perPage),
 
-    filteredData: state => {
-      return state.data.filter(
+    sortedData: state => {
+      return _.orderBy(
+        state.data,
+        [entry => entry[state.sortParam]],
+        state.order ? 'asc' : 'desc'
+      )
+    },
+
+    filteredData: (state, getters) => {
+      return getters.sortedData.filter(
         e =>
         // массив всех значений
           Object.values(e)
@@ -37,8 +49,22 @@ export default new Vuex.Store({
 
   mutations: {
     set: (state, { key, value }) => (state[key] = value),
+
+    setColumnOrder: (state, col) => {
+      if(state.sortParam === col) {
+          state.order = !state.order
+      }
+      else {
+          state.order = true
+          state.sortParam = col
+      }
+    }
   },
   actions: {
+    setOrder({commit}, col) {
+      console.log("Sort by " + col);
+      commit('setColumnOrder', col)
+    }
 
   }
 })
