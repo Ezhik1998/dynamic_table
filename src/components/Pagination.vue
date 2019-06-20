@@ -53,7 +53,7 @@
       </template>
 
       <li>
-        <router-link :to="{ name: 'table', params: { num_page: curPage + 1}}"  v-if="curPage!=numPages">Next</router-link>
+        <router-link :to="{ name: 'table', params: { num_page: curPage + 1}}"  v-if="curPage!=numPages && numPages > 0">Next</router-link>
         <span v-else class="disabled">Next</span>
       </li>
   

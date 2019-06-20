@@ -1,6 +1,6 @@
 <template>
   <div class="info">     
-    Info: {{(curPage * perPage - perPage) + 1}} - {{(curPage * perPage) > data.length ? data.length : (curPage * perPage)}} / {{data.length}}    
+    Info: {{filteredData.length > 0 ? ((curPage * perPage - perPage) + 1) : 0}} - {{(curPage * perPage) > filteredData.length ? filteredData.length : (curPage * perPage)}} / {{filteredData.length}}    
   </div>
 </template>
 
@@ -9,7 +9,8 @@ import { mapState, mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['data', 'curPage', 'perPage'])    
+    ...mapState(['data', 'curPage', 'perPage']),    
+    ...mapGetters(['filteredData'])
   }
 }
 </script>
