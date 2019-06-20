@@ -25,7 +25,8 @@ export default new Vuex.Store({
     sortedData: state => {
       return _.orderBy(
         state.data,
-        [entry => entry[state.sortParam]],
+        // [iteratees => iteratees[state.sortParam]],
+        [state.sortParam],
         state.order ? 'asc' : 'desc'
       )
     },
@@ -58,9 +59,15 @@ export default new Vuex.Store({
           state.order = true
           state.sortParam = col
       }
-    }
+    },
+
+    setNewData: (state, payload) => (state.data = payload),
   },
   actions: {
+    uploadData({ commit }, data) {
+      console.log('new JSON file')      
+      commit('setNewData', JSON.parse(data))
+    },
     setOrder({commit}, col) {
       console.log("Sort by " + col);
       commit('setColumnOrder', col)
