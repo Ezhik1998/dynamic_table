@@ -12,7 +12,11 @@
 		</thead>
 		<tbody>
 			<tr v-for="(row, index) in rows" :key="`r${index}`">
-				<td v-for="(item, key) in row" :key="`d${key}`">
+				<td v-for="(item, key) in row" 
+				:key="`d${key}`"
+				contenteditable="true"
+            	@input="event => onInput(event)"
+            	@blur="onSave(index, key)">
 					<span v-html="replaceText(item.toString())" />
 				</td>
 			</tr>
@@ -26,9 +30,13 @@ import { mapState, mapGetters } from 'vuex';
 export default {
 	name: 'Table',
 
+	data: () => ({
+		editedCell: ''
+	}),
+
 	computed: {
-		...mapState(['searchText', 'order', 'sortParam']),
-		...mapGetters(['fields', 'rows']),
+		...mapState(['searchText', 'order', 'sortParam', 'curPage', 'perPage']),
+		...mapGetters(['fields', 'rows', 'filteredData']),
 	},
 
 	methods: {
@@ -42,8 +50,27 @@ export default {
 
 		setSortOrder(col){
 			this.$store.dispatch('setOrder', col)
+		},
+
+		onInput(event) {
+			console.log("--------------------------------------------");
+			console.log("reading input data");
+			this.editedCell = event.target.innerText.trim()
+			console.log("New text in cell " + this.editedCell);
+		},
+
+		onSave(index, key) {
+			console.log("////////////////////////////////////////////");
+			let allTableIndex = this.curPage * this.perPage - (this.perPage - index);
+			console.log("Index of cell in full table " + allTableIndex);
+			this.filteredData[allTableIndex][key] =
+			this.editedCell.length !== 0
+				? this.editedCell
+				: this.filteredData[allTableIndex][key]
+			console.log('Saving text ' + this.filteredData[allTableIndex][key])
+			this.editedCell = ''
 		}
-	},
+	},	
 };
 
 
