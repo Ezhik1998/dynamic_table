@@ -71,13 +71,7 @@ export default {
 			this.editedCell = ''
 		}
 	},	
-};
-
-
-	// if (this.$store.state.data[index][key] !== this.editedCell && this.editedCell !==''){
-    //       this.$store.state.data[index][key] = this.editedCell
-    //       this.editedCell = ''
-    //   }
+};	
 </script>
 
 

@@ -25,7 +25,6 @@ export default new Vuex.Store({
     sortedData: state => {
       return _.orderBy(
         state.data,
-        // [iteratees => iteratees[state.sortParam]],
         [state.sortParam],
         state.order ? 'asc' : 'desc'
       )

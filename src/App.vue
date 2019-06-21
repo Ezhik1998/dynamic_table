@@ -56,7 +56,6 @@ export default {
 .file-uploader {
   padding: 10px 0 0 2px;
   width: 300px;
-  /* height: 80px; */
 }
 </style>
 
