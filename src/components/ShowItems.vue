@@ -19,6 +19,7 @@ export default {
         return this.$store.state.perPage;
       },
       set: function(value) {
+        this.$router.push({path: "/1"});
         this.$store.commit('set', { key: 'curPage', value: 1 });
         this.$store.commit('set', { key: 'perPage', value });
       },
